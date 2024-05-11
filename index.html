@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web-Based Cipher Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <header>
+        <h1>Web-Based Cipher Game</h1>
+    </header>
+
+    <main>
+        <!-- Game Section -->
+        <section id="game-container">
+            <!-- Cipher Text Display -->
+            <div id="cipher-display">
+                <p class="cipher-character">A</p>
+                <input type="text" class="cipher-input" maxlength="1">
+                <!-- Repeat for all characters, dynamically generated -->
+            </div>
+            <!-- Author Display -->
+            <div id="author-display">
+                <p>Author: <span id="author-name">[Author Name]</span></p>
+            </div>
+        </section>
+
+        <!-- Game Controls -->
+        <section id="game-controls">
+            <button id="play-pause-button">Play</button>
+            <button id="check-answers-button">Check Answers</button>
+            <button id="hint-button">Hint</button>
+            <button id="reset-button">Reset</button>
+        </section>
+
+        <!-- Feedback and Timer -->
+        <section id="feedback-timer">
+            <p id="feedback-message">[Feedback Message]</p>
+            <p id="timer">Time: 00:00</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Name</p>
+    </footer>
+
+    <script src="scripts.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>

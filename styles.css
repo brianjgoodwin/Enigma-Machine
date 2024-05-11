@@ -1,138 +1,98 @@
-/* Base Styles */
+/* General page styling */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
     background-color: #f0f0f0;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2.5em;
-    color: #333;
-}
-
-main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: auto;
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Game Section Styles */
-#game-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.cipher-character {
-    display: inline-block;
-    margin: 5px;
-    font-weight: bold;
-    font-size: 1.5em;
-}
-
-.cipher-input {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    font-size: 1.2em;
-    margin: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.cipher-input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 4px #007bff;
-}
-
-#author-display {
-    margin-top: 20px;
-    font-style: italic;
-    color: #666;
-}
-
-/* Game Controls Styles */
-#game-controls {
-    display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.controls {
+    margin-bottom: 16px;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
+    padding: 8px 16px;
+    margin: 4px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.2s;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+#timer {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cipher-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 16px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 800px;
+}
+
+.word-container {
+    display: inline-flex; /* Makes the words wrap as units */
+    margin-right: 8px;
 }
 
 .character-container {
     display: inline-block;
     text-align: center;
-    margin: 0 2px;
+    margin: 4px;
 }
 
-.cipher-character, .cipher-input, .non-editable {
-    display: block;
+.cipher-character {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.cipher-input {
+    width: 20px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.cipher-input:focus {
+    border-color: #4CAF50;
+    outline: none;
 }
 
 .non-editable {
-    height: 30px; /* Align with the height of input fields */
-    line-height: 30px; /* Center text vertically */
-}
-
-/* Feedback and Timer Styles */
-#feedback-timer {
+    display: inline-block;
+    width: 20px; /* Ensures consistent spacing */
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 4px;
 }
 
-#feedback-message {
-    margin: 10px 0;
-    font-weight: bold;
-    font-size: 1.2em;
+.feedback {
+    font-size: 1.2rem;
+    margin-top: 16px;
+    text-align: center;
 }
 
-#feedback-message.success {
-    color: #28a745;
+.feedback.success {
+    color: green;
 }
 
-#feedback-message.error {
-    color: #dc3545;
-}
-
-#timer {
-    font-size: 1.2em;
-    color: #333;
+.feedback.error {
+    color: red;
 }

@@ -55,18 +55,33 @@ function coverPuzzle() {
 
 function initializeGame() {
     const samplePuzzle = "To be or not to be, that is the question.";
-    const shiftAmount = 5; // Example shift amount for Caesar cipher
-    const encryptedText = encrypt(samplePuzzle, shiftAmount);
-    decipheredText = samplePuzzle.toUpperCase(); // Store the solution
-    const display = document.getElementById('cipher-display');
-    display.innerHTML = '';
-    cipherInputs = [];
+    const shiftAmount = 5;
+    const encryptedText = encrypt(samplePuzzle, shiftAmount); // Encrypted for display
+    decipheredText = createCipherText(samplePuzzle); // Cipher text for logical comparison
 
+    renderEncryptedText(encryptedText);
+}
+
+function createCipherText(text) {
+    return text.toUpperCase().replace(/[^A-Z]/g, ''); // Removes non-alphabetic characters
+}
+
+function encrypt(text, shift) {
+    return text.toUpperCase().replace(/[A-Z]/g, char => {
+        const charCode = char.charCodeAt(0);
+        const shiftedCode = ((charCode - 65 + shift) % 26) + 65;
+        return String.fromCharCode(shiftedCode);
+    });
+}
+
+function renderEncryptedText(encryptedText) {
+    const display = document.getElementById('cipher-display');
+    display.innerHTML = ''; // Clear previous content
     encryptedText.split(' ').forEach((word, wordIndex) => {
         const wordContainer = document.createElement('div');
         wordContainer.className = 'word-container';
 
-        word.split('').forEach((char, index) => {
+        word.split('').forEach(char => {
             const characterContainer = document.createElement('div');
             characterContainer.className = 'character-container';
 
@@ -113,61 +128,22 @@ function initializeGame() {
     });
 }
 
-function encrypt(text, shift) {
-    return text.toUpperCase().replace(/[A-Z]/g, char => {
-        const charCode = char.charCodeAt(0);
-        const shiftedCode = ((charCode - 65 + shift) % 26) + 65;
-        return String.fromCharCode(shiftedCode);
-    });
+function checkAnswers() {
+    const userInput = Array.from(document.getElementsByClassName('cipher-input'))
+        .map(input => input.value.toUpperCase())
+        .join('');
+
+    if (userInput === decipheredText) {
+        updateFeedback("Congratulations! You solved it!", 'success');
+    } else {
+        updateFeedback("Incorrect, please try again.", 'error');
+    }
 }
 
-function checkAnswers() {
-    let isCorrect = true;
-
-    // Clear previous answers
-    const correctAnswerDisplay = document.getElementById('correct-answer-display');
-    const userAnswerDisplay = document.getElementById('user-answer-display');
-    correctAnswerDisplay.innerHTML = '';
-    userAnswerDisplay.innerHTML = '';
-
-    // Concatenate cipher text and user input to ensure spaces are included
-    let cipherText = '';
-    let userInput = '';
-    cipherInputs.forEach((input, index) => {
-        const correctAnswer = decipheredText[index];
-        cipherText += correctAnswer;
-        if (input !== null) {
-            const userAnswer = input.value.toUpperCase();
-            userInput += userAnswer;
-        } else {
-            cipherText += ' '; // Add space to the cipher text for empty input (non-editable characters)
-            userInput += ' '; // Add space for empty input (non-editable characters)
-        }
-    });
-
-    // Update correct answer display
-    const correctAnswerSpan = document.createElement('span');
-    correctAnswerSpan.textContent = cipherText;
-    correctAnswerDisplay.appendChild(correctAnswerSpan);
-
-    // Update user's answer display
-    const userAnswerSpan = document.createElement('span');
-    userAnswerSpan.textContent = userInput;
-    userAnswerDisplay.appendChild(userAnswerSpan);
-
-    // Check if the user's answer matches the cipher text
-    if (userInput !== cipherText) {
-        isCorrect = false;
-    }
-
+function updateFeedback(message, type) {
     const feedbackElement = document.getElementById('feedback');
-    if (isCorrect) {
-        feedbackElement.textContent = "You solved it!";
-        feedbackElement.className = 'feedback success';
-    } else {
-        feedbackElement.textContent = "Some letters are incorrect. Keep trying!";
-        feedbackElement.className = 'feedback error';
-    }
+    feedbackElement.textContent = message;
+    feedbackElement.className = 'feedback ' + type;
 }
 
 document.getElementById('check-answers-button').addEventListener('click', checkAnswers);

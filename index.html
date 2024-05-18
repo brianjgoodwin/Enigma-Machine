@@ -1,34 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags necessary for proper rendering and touch zooming -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web-Based Cipher Game</title>
+    <!-- Link to the external CSS for styling -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Timer and Controls -->
-    <div class="controls">
-        <div id="timer">00:00</div>
-        <button id="play-pause-button" onclick="togglePlayPause()">Play</button>
-        <button id="check-answers-button">Check Answers</button>
-        <button id="reset-button">Reset</button>
+    <!-- Landing Cover: The first screen users see -->
+    <div id="landing-cover" class="cover-screen">
+        <h1>Enigma Machine</h1> <!-- Title of the game -->
+        <!-- Container for buttons, acts like SwiftUI's HStack -->
+        <div class="button-container">
+            <button onclick="startGame()">Play</button> <!-- Button to start the game -->
+            <button id="how-to-play-button" onclick="toggleHowToPlay()">How to Play</button> <!-- Button to show game rules -->
+            <button onclick="alert('Sign In feature coming soon!')">Sign In</button> <!-- Placeholder for future sign in functionality -->
+        </div>
+    </div>
+    
+    <!-- How to Play Modal: Hidden by default, shows instructions when toggled -->
+    <div id="how-to-play-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="toggleHowToPlay()">&times;</span> <!-- Close button for the modal -->
+            <h2>How to Play</h2> <!-- Modal title -->
+            <p>Decode the cipher text using your skills. Each correct answer improves your streak. Click 'Play' to start the game and 'Check Answers' to submit your guess.</p> <!-- Instructions -->
+        </div>
     </div>
 
-    <!-- Cipher Display -->
-    <div id="cipher-display" class="cipher-display"></div>
+    <!-- Settings Modal: Also hidden by default, contains settings toggles -->
+    <div id="settings-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="toggleSettings()">&times;</span> <!-- Close button for the settings modal -->
+            <h2>Settings</h2> <!-- Modal title for settings -->
+            <!-- Toggle for hiding/showing the timer -->
+            <div>
+                <label><input type="checkbox" id="toggle-timer" onchange="toggleTimerVisibility()"> Hide Timer</label>
+            </div>
+            <!-- Dummy toggle for a feature not currently functioning -->
+            <div>
+                <label><input type="checkbox" id="toggle-similar" onchange="toggleDummy()"> Show Similar Character (Not Functioning)</label>
+            </div>
+            <!-- Dummy toggle for dark mode, also non-functional -->
+            <div>
+                <label><input type="checkbox" id="toggle-dark-mode" onchange="toggleDarkMode()"> Dark Mode (Not Functioning)</label>
+            </div>
+        </div>
+    </div>
 
-    <!-- Feedback Area -->
-    <div id="feedback" class="feedback"></div>
+    <!-- Main Game Content: Hidden initially and shown when the game starts -->
+    <div id="game-container" style="display:none;">
+        <!-- Header with navigation icons -->
+        <header class="header">
+            <h1 class="title">Enigma Machine</h1> <!-- Main title displayed in the header -->
+            <div class="header-icons">
+                <button class="icon-button">❓</button> <!-- Placeholder for help icon -->
+                <button class="icon-button">📊</button> <!-- Placeholder for statistics icon -->
+                <button class="icon-button" onclick="toggleSettings()">⚙️</button> <!-- Settings icon that triggers settings modal -->
+            </div>
+        </header>
 
-    <!-- Correct Answer Display -->
-    <div id="correct-answer-display" class="answer-display"></div>
+        <!-- Timer and Play/Pause Controls -->
+        <div class="controls-row">
+            <div id="timer">00:00</div> <!-- Display for the timer -->
+            <button id="play-pause-button" onclick="togglePlayPause()">Play</button> <!-- Button to play or pause the game -->
+        </div>
 
-    <!-- User's Answer Display -->
-    <div id="user-answer-display" class="answer-display"></div>
+        <!-- Display area for the cipher text -->
+        <div id="cipher-display" class="cipher-display"></div>
 
-    <!-- JavaScript File -->
+        <!-- Action Buttons for game operations -->
+        <div class="action-buttons">
+            <button id="check-answers-button">Check Answers</button> <!-- Button to check the entered answers -->
+            <button id="reset-button">Reset</button> <!-- Button to reset the game state -->
+        </div>
+
+        <!-- Area to provide feedback to the user -->
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <!-- External JavaScript file that contains the game logic -->
     <script src="scripts.js"></script>
 
 </body>

@@ -4,10 +4,11 @@ let decipheredText = '';
 let cipherInputs = [];
 
 function startTimer() {
+    elapsedTime = 0;  // Reset the timer each time the game starts
     if (timer === null) {
         timer = setInterval(() => {
             elapsedTime++;
-            displayTime();
+            displayTime();  // Update the timer display every second
         }, 1000);
     }
 }
@@ -38,19 +39,28 @@ function togglePlayPause() {
         startTimer();
         playPauseButton.textContent = 'Pause';
         revealPuzzle();
+        setActionButtonsDisabled(false); // Enable buttons
     } else {
         pauseTimer();
         playPauseButton.textContent = 'Play';
         coverPuzzle();
+        setActionButtonsDisabled(true); // Disable buttons
     }
 }
 
+function setActionButtonsDisabled(disabled) {
+    document.getElementById('check-answers-button').disabled = disabled;
+    document.getElementById('reset-button').disabled = disabled;
+}
+
 function revealPuzzle() {
-    document.getElementById('cipher-display').style.filter = 'none';
+    document.getElementById('cipher-display').classList.remove('blurred');
+    document.querySelector('.action-buttons').classList.remove('blurred');
 }
 
 function coverPuzzle() {
-    document.getElementById('cipher-display').style.filter = 'blur(5px)';
+    document.getElementById('cipher-display').classList.add('blurred');
+    document.querySelector('.action-buttons').classList.add('blurred');
 }
 
 function initializeGame() {
@@ -58,6 +68,7 @@ function initializeGame() {
     const shiftAmount = 5;
     const encryptedText = encrypt(samplePuzzle, shiftAmount); // Encrypted for display
     decipheredText = createCipherText(samplePuzzle); // Cipher text for logical comparison
+    console.log("Game is being initialized...");
 
     renderEncryptedText(encryptedText);
 }
@@ -160,3 +171,45 @@ document.addEventListener('DOMContentLoaded', () => {
     coverPuzzle();
     initializeGame();
 });
+
+function startGame() {
+    // Hide the landing cover
+    document.getElementById('landing-cover').style.display = 'none';
+    
+    // Show the game container
+    document.getElementById('game-container').style.display = 'block';
+    
+    // Start the timer
+    startTimer();
+
+    // Initialize the game (this function should prepare everything needed to start the game)
+    initializeGame();  // Assume this function sets up the puzzle and resets any needed game state
+}
+
+
+function toggleHowToPlay() {
+    var modal = document.getElementById('how-to-play-modal');
+    if (modal.style.display === "none") {
+        modal.style.display = "block";
+    } else {
+        modal.style.display = "none";
+    }
+}
+
+function toggleSettings() {
+    var modal = document.getElementById('settings-modal');
+    modal.style.display = modal.style.display === "none" ? "block" : "none";
+}
+
+function toggleTimerVisibility() {
+    var timer = document.getElementById('timer');
+    timer.style.display = timer.style.display === "none" ? "block" : "none";
+}
+
+function toggleDummy() {
+    console.log("Dummy function for showing similar characters toggled.");
+}
+
+function toggleDarkMode() {
+    console.log("Dummy function for dark mode toggled.");
+}
